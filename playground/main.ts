@@ -1,17 +1,21 @@
-const { layoutFromMap } = require("../src/index.ts");
-const flatTree = require("./flatTree.ts").default;
-const { randomTree } = require("../fixtures/randomTree");
+import { SVG } from '@svgdotjs/svg.js';
+import { layoutFromMap } from '../src/layoutFromMap';
+import flatTree from "./flatTree";
+import { randomTree } from "../fixtures/randomTree";
+import './style.css';
+
 
 var draw = SVG().addTo("body");
 
-const { nodes, rels } = layoutFromMap(1, randomTree(), {
+// const { nodes, rels } = layoutFromMap(1, randomTree(), {
+const { nodes, rels } = layoutFromMap(1, flatTree, {
   rootX: window.innerWidth / 2,
   rootY: window.innerHeight / 2,
   sourceTargetSpacing: 20,
   //orientation: "horizontal",
 });
 
-//console.log(nodes);
+console.log(nodes);
 
 rels.forEach((rel) => {
   draw.path(getPathD(rel.source, rel.target));
@@ -37,7 +41,7 @@ function drawNode(node) {
     .move(node.x, node.y)
     .fill(stringToColour(node.name));
 
-  //draw.text(node.name).move(node.x, node.y);
+  draw.text(node.name).move(node.x, node.y);
 }
 
 function stringToColour(str) {
@@ -61,3 +65,4 @@ function getPathD(sourceNode, targetNode) {
     targetNode.y + targetNode.height / 2
   }`;
 }
+
