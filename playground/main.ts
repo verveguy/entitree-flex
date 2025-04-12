@@ -1,18 +1,31 @@
+import { getElements } from '../src/getElements';
 import { layoutFromMap } from '../src/layoutFromMap';
-import { testTree } from './testTree';
-import { randomTree } from '../fixtures/randomTree';
+import { clearDrawing, drawNodeFrame, drawNodes, higlightNode } from './drawNodes';
 import './style.css';
-import { clearDrawing, drawNodes } from '../src/drawNodes';
-import { randomAgressiveTree } from '../fixtures/randomAgressive';
+import { testTree } from './testTree';
 
 // const { nodes, rels } = layoutFromMap(1, randomAgressiveTree(), {
 // const { nodes, rels } = layoutFromMap(1, randomTree(), {
-const { nodes, rels } = layoutFromMap(1, testTree, {
-  rootX: window.innerWidth / 2,
-  rootY: window.innerHeight / 2,
-  sourceTargetSpacing: 20,
-  //orientation: "horizontal",
-});
+const { nodes, rels } = layoutFromMap(
+  1,
+  testTree,
+  {
+    rootX: window.innerWidth / 2,
+    rootY: window.innerHeight / 2,
+    sourceTargetSpacing: 20,
+    //orientation: "horizontal",
+  },
+  visualDebug
+);
+
+function visualDebug(root, settings, map) {
+  const { nodes, rels } = getElements(root, settings, map);
+
+  clearDrawing();
+  drawNodeFrame(root);
+  higlightNode(root);
+  drawNodes(nodes, rels);
+}
 
 // console.log(nodes);
 

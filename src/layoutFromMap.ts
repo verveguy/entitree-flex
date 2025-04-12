@@ -8,7 +8,9 @@ import { processRoot } from './processSubtree';
 export function layoutFromMap<T>(
   rootId: string | number,
   originalMap: Record<string | number, T>,
-  customSettings: Partial<Settings> = {}
+  customSettings: Partial<Settings> = {},
+  // @ts-ignore - debug is used in commented code
+  visualDebug: (root: any, settings: Settings, map: TreeMap<T>) => void = (root, settings, map) => {}
 ) {
   const settings: Settings = {
     ...defaultSettings,
@@ -19,7 +21,7 @@ export function layoutFromMap<T>(
 
   const root = makeRoot(map[rootId], settings);
 
-  processRoot(root, settings, map);
+  processRoot(root, settings, map, visualDebug);
 
   return getElements<T>(root, settings, map);
 }
