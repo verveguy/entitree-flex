@@ -1,4 +1,4 @@
-import { TreeMap } from "./TreeMap";
+import { TreeMap } from './TreeMap';
 
 export const getFromMap = <T>(ids: string[], map: TreeMap<T>) => {
   if (!ids) return;

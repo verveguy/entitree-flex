@@ -1,16 +1,11 @@
-import { TreeNode } from "./TreeNode";
+import { TreeNode } from './TreeNode';
 
-export const shiftFromCountour = <T>(
-  contourNode: TreeNode<T>,
-  node: TreeNode<T>
-) => {
+export const shiftFromCountour = <T>(contourNode: TreeNode<T>, node: TreeNode<T>) => {
   const nodeBottomY = node.y + node.height + node.marginBottom;
 
-  const contourNodeEdgeX =
-    contourNode.x + contourNode.width + contourNode.marginRight;
+  const contourNodeEdgeX = contourNode.x + contourNode.width + contourNode.marginRight;
   const contourTopY = contourNode.y;
-  const contourBottomY =
-    contourNode.y + contourNode.height + contourNode.marginBottom;
+  const contourBottomY = contourNode.y + contourNode.height + contourNode.marginBottom;
 
   const coversCountour = node.y <= contourTopY && nodeBottomY >= contourBottomY;
   const traspassHorizontal = node.x < contourNodeEdgeX;

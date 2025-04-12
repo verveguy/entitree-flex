@@ -1,19 +1,18 @@
 {
-    "printWidth": 120,
-    "bracketSpacing": true,
-    "endOfLine": "auto",
-    "formatOnSave": true,
-    "semi": true,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "arrowParens": "always",
-    "overrides": [
-        {
-            "files": "*.ts,*.tsx",
-            "options": {
-                "parser": "typescript"
-            }
-        }
-    ]
+  "printWidth": 120,
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": "*.ts,*.tsx",
+      "options": {
+        "parser": "typescript"
+      }
+    }
+  ]
 }

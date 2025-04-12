@@ -1,8 +1,8 @@
-import { Settings } from "./Settings";
-import { TreeMap } from "./TreeMap";
-import { TreeNode } from "./TreeNode";
-import { TreeRel } from "./TreeRel";
-import { getFromMap } from "./getFromMap";
+import { Settings } from './Settings';
+import { TreeMap } from './TreeMap';
+import { TreeNode } from './TreeNode';
+import { TreeRel } from './TreeRel';
+import { getFromMap } from './getFromMap';
 
 export const getElements = <T>(
   root: TreeNode<T>,
@@ -55,12 +55,12 @@ export const getElements = <T>(
   }
 
   drill(root);
-  
-  function drill(subtree, direction?: "parents" | "children") {
+
+  function drill(subtree, direction?: 'parents' | 'children') {
     processNextBefores(subtree);
     processNextAfters(subtree);
 
-    if (!direction || direction === "parents") {
+    if (!direction || direction === 'parents') {
       const parents = getFromMap(subtree[settings.sourcesAccessor], map);
 
       parents?.forEach((parent) => {
@@ -74,7 +74,7 @@ export const getElements = <T>(
       });
     }
 
-    if (!direction || direction === "children") {
+    if (!direction || direction === 'children') {
       const children = getFromMap(subtree[settings.targetsAccessor], map);
       children?.forEach((child) => {
         if (child.x !== undefined) {

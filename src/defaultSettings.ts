@@ -1,20 +1,20 @@
-import { Settings } from "./Settings";
+import { Settings } from './Settings';
 
 export const defaultSettings: Settings = {
   clone: false,
   enableFlex: true,
   firstDegreeSpacing: 15,
-  nextAfterAccessor: "spouses",
+  nextAfterAccessor: 'spouses',
   nextAfterSpacing: 10,
-  nextBeforeAccessor: "siblings",
+  nextBeforeAccessor: 'siblings',
   nextBeforeSpacing: 10,
   nodeHeight: 40,
   nodeWidth: 40,
-  orientation: "vertical",
+  orientation: 'vertical',
   rootX: 0,
   rootY: 0,
   secondDegreeSpacing: 20,
-  sourcesAccessor: "parents",
+  sourcesAccessor: 'parents',
   sourceTargetSpacing: 10,
-  targetsAccessor: "children",
+  targetsAccessor: 'children',
 };

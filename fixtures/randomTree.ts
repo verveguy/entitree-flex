@@ -24,13 +24,13 @@ export const randomTree = (): RandomTree => {
       for (let index = 0; index < randomInt(0, 3); index++) {
         const spouse = randomNode();
         tree[spouse.id] = spouse;
-        child.spouses.push(spouse.id);
+        child.spouses!.push(spouse.id);
       }
 
       for (let index = 0; index < randomInt(0, 3); index++) {
         const sibling = randomNode();
         tree[sibling.id] = sibling;
-        child.siblings.push(sibling.id);
+        child.siblings!.push(sibling.id);
       }
 
       tree[child.id] = child;
@@ -50,13 +50,13 @@ export const randomTree = (): RandomTree => {
       for (let index = 0; index < randomInt(0, 2); index++) {
         const spouse = randomNode();
         tree[spouse.id] = spouse;
-        parent.spouses.push(spouse.id);
+        parent.spouses!.push(spouse.id);
       }
 
       for (let index = 0; index < randomInt(0, 2); index++) {
         const sibling = randomNode();
         tree[sibling.id] = sibling;
-        parent.siblings.push(sibling.id);
+        parent.siblings!.push(sibling.id);
       }
 
       tree[parent.id] = parent;

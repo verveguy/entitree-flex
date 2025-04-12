@@ -27,22 +27,7 @@ export function drillSpouses(subtree, settings, map, contour, debug = () => {}) 
 
     spouses.forEach((spouse) => {
       const midVerticalY = (spouse.y ?? subtree.y) + spouse.groupMaxHeight / 2;
-
-      // /////////////////// BEFORES ///////////////////
-      // const subSiblings = getFromMap(sibling[settings.nextBeforeAccessor], map);
-      // subSiblings?.forEach((subSibling) => {
-      //   subSibling.x = currentX;
-      //   subSibling.y = midVerticalY - subSibling.height / 2;
-
-      //   checkContourOverlap(contour, subSibling, settings);
-      //   processSubtree(subSibling, settings, map, contour);
-      //   currentX = getNodeRightX(subSibling);
-      // });
-
-      /////////////////// GROUP MAIN NODE
-
       //Set positions
-
       spouse.x = currentX;
       spouse.y = midVerticalY - spouse.height / 2;
 
@@ -51,22 +36,8 @@ export function drillSpouses(subtree, settings, map, contour, debug = () => {}) 
       groupShiftRight(spouse, settings, map, currentX);
       //checkContourOverlap(contour, sibling, settings);
       addGroupBoundingBox(spouse, settings, map);
-
       debug();
-
       currentX = spouse.groupRightX;
-
-      /////////////////// AFTERS ///////////////////
-      // getFromMap(sibling[settings.nextAfterAccessor], map)?.forEach((partner) => {
-      //   partner.x = currentX;
-      //   partner.y = midVerticalY - partner.height / 2;
-
-      //   processSubtree(partner, settings, map, contour);
-      //   checkContourOverlap(contour, partner, settings);
-      //   currentX = getNodeRightX(partner);
-      // });
-
-      //checkContourOverlap(descendantsContour, sibling, settings);
     });
   } else {
     const initialShiftTop = getInitialTargetsShiftTop(subtree, spouses, settings, map);

@@ -1,6 +1,6 @@
-import { Settings } from "./Settings";
-import { TreeMap } from "./TreeMap";
-import { TreeNode } from "./TreeNode";
+import { Settings } from './Settings';
+import { TreeMap } from './TreeMap';
+import { TreeNode } from './TreeNode';
 
 export const groupCallback = (
   mainNode: TreeNode,
