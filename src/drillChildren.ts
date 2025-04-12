@@ -11,7 +11,14 @@ import { processSubtree } from './processSubtree';
 
 const descendantsContour = [];
 
-export function drillChildren(subtree, settings, map, contour, debug = () => {}) {
+export function drillChildren(
+  subtree,
+  settings,
+  map,
+  contour,
+  // @ts-ignore - debug is used in commented code
+  debug: () => void = () => {}
+) {
   if (!contour) contour = descendantsContour;
 
   const children = getFromMap(subtree[settings.targetsAccessor], map);
@@ -19,7 +26,7 @@ export function drillChildren(subtree, settings, map, contour, debug = () => {})
 
   addLevelNodesSizes(children, settings, map);
 
-  debug();
+  // debug();
 
   if (settings.orientation === 'vertical') {
     const initialShiftLeft = getInitialTargetsShiftLeft(subtree, children, settings, map);

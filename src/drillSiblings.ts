@@ -3,14 +3,20 @@ import { addGroupRightX } from './addGroupRightX';
 import { addLevelNodesSizes } from './addLevelNodesSizes';
 import { checkContourOverlap } from './checkContourOverlap';
 import { getFromMap } from './getFromMap';
-import { getInitialTargetsShiftLeft } from './getInitialTargetsShiftLeft';
 import { getInitialTargetsShiftTop } from './getInitialTargetsShiftTop';
 import { getNodeBottomY } from './getNodeBottomY';
 import { processSubtree } from './processSubtree';
 
 const descendantsContour = [];
 
-export function drillSiblings(subtree, settings, map, contour, debug = () => {}) {
+export function drillSiblings(
+  subtree,
+  settings,
+  map,
+  contour,
+  // @ts-ignore - debug is used in commented code
+  debug: () => void = () => {}
+) {
   if (!contour) contour = descendantsContour;
 
   const siblings = getFromMap(subtree[settings.nextBeforeAccessor], map);
@@ -18,10 +24,10 @@ export function drillSiblings(subtree, settings, map, contour, debug = () => {})
 
   addLevelNodesSizes(siblings, settings, map);
 
-  debug();
+  // debug();
 
   if (settings.orientation === 'vertical') {
-    const initialShiftLeft = getInitialTargetsShiftLeft(subtree, siblings, settings, map);
+    //const initialShiftLeft = getInitialTargetsShiftLeft(subtree, siblings, settings, map);
     let currentX = subtree.x; // - initialShiftLeft;
 
     siblings.forEach((sibling) => {
@@ -34,7 +40,7 @@ export function drillSiblings(subtree, settings, map, contour, debug = () => {})
       // groupShiftLeft(sibling, settings, map, currentX);
       //checkContourOverlap(contour, sibling, settings);
       addGroupBoundingBox(sibling, settings, map);
-      debug();
+      // debug();
       currentX = sibling.groupLeftX;
     });
   } else {
