@@ -22,7 +22,7 @@ export const centerSourceToTargets = (
           source.width / 2;
 
         const delta = newSourceX - source.x;
-        if (newSourceX !== source.x) {
+        if (delta !== 0) {
           source.x += delta;
 
           const siblings = getFromMap(source[settings.nextBeforeAccessor], map);
@@ -37,7 +37,7 @@ export const centerSourceToTargets = (
           source.height / 2;
 
         const delta = newSourceY - source.y;
-        if (newSourceY !== source.y) {
+        if (delta !== 0) {
           source.y += delta;
 
           const siblings = getFromMap(source[settings.nextBeforeAccessor], map);

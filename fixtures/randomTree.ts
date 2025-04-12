@@ -1,12 +1,13 @@
-import { RandomNode, randomNode } from "./randomNode";
+import { RandomNode, randomNode } from './randomNode';
 
-import { randomInt } from "./randomInt";
+import { randomInt } from './randomInt';
 
-type RandomTree = Record<RandomNode["id"], RandomNode>;
+type RandomTree = Record<RandomNode['id'], RandomNode>;
 
 export const randomTree = (): RandomTree => {
   const tree = {};
   const root = randomNode();
+  root.name = 'root';
 
   const childDepth = randomInt(1, 3);
   const parentDepth = randomInt(1, 3);
@@ -20,13 +21,13 @@ export const randomTree = (): RandomTree => {
     for (let index = 0; index < randomInt(1, 3); index++) {
       const child = randomNode();
 
-      for (let index = 0; index < randomInt(0, 2); index++) {
+      for (let index = 0; index < randomInt(0, 3); index++) {
         const spouse = randomNode();
         tree[spouse.id] = spouse;
         child.spouses.push(spouse.id);
       }
 
-      for (let index = 0; index < randomInt(0, 2); index++) {
+      for (let index = 0; index < randomInt(0, 3); index++) {
         const sibling = randomNode();
         tree[sibling.id] = sibling;
         child.siblings.push(sibling.id);

@@ -39,6 +39,7 @@ export const getElements = <T>(
       compare(sibling);
       nodes.push(sibling);
       rels.push({ source: subtree, target: sibling });
+      drill(sibling);
     });
   }
 
@@ -49,10 +50,12 @@ export const getElements = <T>(
       compare(spouse);
       nodes.push(spouse);
       rels.push({ source: subtree, target: spouse });
+      drill(spouse);
     });
   }
 
   drill(root);
+  
   function drill(subtree, direction?: "parents" | "children") {
     processNextBefores(subtree);
     processNextAfters(subtree);
@@ -61,20 +64,26 @@ export const getElements = <T>(
       const parents = getFromMap(subtree[settings.sourcesAccessor], map);
 
       parents?.forEach((parent) => {
-        compare(parent);
-        nodes.push(parent);
-        rels.push({ source: subtree, target: parent });
-        drill(parent, "parents");
+        if (parent.x !== undefined) {
+          compare(parent);
+          nodes.push(parent);
+          rels.push({ source: subtree, target: parent });
+          //drill(parent, "parents");
+          drill(parent);
+        }
       });
     }
 
     if (!direction || direction === "children") {
       const children = getFromMap(subtree[settings.targetsAccessor], map);
       children?.forEach((child) => {
-        compare(child);
-        nodes.push(child);
-        rels.push({ source: subtree, target: child });
-        drill(child, "children");
+        if (child.x !== undefined) {
+          compare(child);
+          nodes.push(child);
+          rels.push({ source: subtree, target: child });
+          // drill(child, "children");
+          drill(child);
+        }
       });
     }
   }

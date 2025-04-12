@@ -11,25 +11,25 @@ import { processSubtree } from './processSubtree';
 
 const descendantsContour = [];
 
-export function drillChildren(subtree, settings, map, contour, debug = () => {}) {
+export function drillSpouses(subtree, settings, map, contour, debug = () => {}) {
   if (!contour) contour = descendantsContour;
 
-  const children = getFromMap(subtree[settings.targetsAccessor], map);
-  if (!children?.length) return;
+  const spouses = getFromMap(subtree[settings.nextAfterAccessor], map);
+  if (!spouses?.length) return;
 
-  addLevelNodesSizes(children, settings, map);
+  addLevelNodesSizes(spouses, settings, map);
 
   debug();
 
   if (settings.orientation === 'vertical') {
-    const initialShiftLeft = getInitialTargetsShiftLeft(subtree, children, settings, map);
+    const initialShiftLeft = getInitialTargetsShiftLeft(subtree, spouses, settings, map);
     let currentX = subtree.x - initialShiftLeft;
 
-    children.forEach((child) => {
-      const midVerticalY = subtree.groupBottomY + settings.sourceTargetSpacing + child.groupMaxHeight / 2;
+    spouses.forEach((spouse) => {
+      const midVerticalY = (spouse.y ?? subtree.y) + spouse.groupMaxHeight / 2;
 
       /////////////////// BEFORES ///////////////////
-      const siblings = getFromMap(child[settings.nextBeforeAccessor], map);
+      const siblings = getFromMap(spouse[settings.nextBeforeAccessor], map);
       siblings?.forEach((sibling) => {
         sibling.x = currentX;
         sibling.y = midVerticalY - sibling.height / 2;
@@ -42,14 +42,14 @@ export function drillChildren(subtree, settings, map, contour, debug = () => {})
       /////////////////// GROUP MAIN NODE
 
       //Set positions
-      child.x = currentX;
-      child.y = midVerticalY - child.height / 2;
+      spouse.x = currentX;
+      spouse.y = midVerticalY - spouse.height / 2;
 
-      checkContourOverlap(contour, child, settings);
-      currentX = getNodeRightX(child);
+      checkContourOverlap(contour, spouse, settings);
+      currentX = getNodeRightX(spouse);
 
       /////////////////// AFTERS ///////////////////
-      getFromMap(child[settings.nextAfterAccessor], map)?.forEach((partner) => {
+      getFromMap(spouse[settings.nextAfterAccessor], map)?.forEach((partner) => {
         partner.x = currentX;
         partner.y = midVerticalY - partner.height / 2;
 
@@ -58,19 +58,20 @@ export function drillChildren(subtree, settings, map, contour, debug = () => {})
         currentX = getNodeRightX(partner);
       });
 
-      addGroupBoundingBox(child, settings, map);
+      addGroupBoundingBox(spouse, settings, map);
 
-      processSubtree(child, settings, map, contour);
+      //checkContourOverlap(descendantsContour, spouse, settings);
+      processSubtree(spouse, settings, map, contour);
     });
   } else {
-    const initialShiftTop = getInitialTargetsShiftTop(subtree, children, settings, map);
+    const initialShiftTop = getInitialTargetsShiftTop(subtree, spouses, settings, map);
     let currentY = subtree.y - initialShiftTop;
 
-    children.forEach((child) => {
-      const midPointX = subtree.groupRightX + child.groupMaxWidth / 2;
+    spouses.forEach((spouse) => {
+      const midPointX = subtree.groupRightX + spouse.groupMaxWidth / 2;
 
       /////////////////// SIBLING
-      const siblings = getFromMap(child[settings.nextBeforeAccessor], map);
+      const siblings = getFromMap(spouse[settings.nextBeforeAccessor], map);
       siblings?.forEach((sibling) => {
         sibling.y = currentY;
         sibling.x = midPointX - sibling.width / 2;
@@ -83,14 +84,14 @@ export function drillChildren(subtree, settings, map, contour, debug = () => {})
       /////////////////// CHILD
 
       //Set positions
-      child.y = currentY;
-      child.x = midPointX - child.width / 2;
+      spouse.y = currentY;
+      spouse.x = midPointX - spouse.width / 2;
 
-      checkContourOverlap(contour, child, settings);
-      currentY = getNodeBottomY(child);
+      checkContourOverlap(contour, spouse, settings);
+      currentY = getNodeBottomY(spouse);
 
       /////////////////// partners
-      const partners = getFromMap(child[settings.nextAfterAccessor], map);
+      const partners = getFromMap(spouse[settings.nextAfterAccessor], map);
       partners?.forEach((partner) => {
         partner.y = currentY;
         partner.x = midPointX - partner.width / 2;
@@ -99,9 +100,9 @@ export function drillChildren(subtree, settings, map, contour, debug = () => {})
         currentY = getNodeBottomY(partner);
       });
 
-      addGroupRightX(child, settings, map);
+      addGroupRightX(spouse, settings, map);
 
-      processSubtree(child, settings, map, contour);
+      processSubtree(spouse, settings, map, contour);
     });
   }
 

@@ -1,3 +1,12 @@
+# Editor directories and files
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
 node_modules
 dist
 .DS_Store

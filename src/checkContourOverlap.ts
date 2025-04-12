@@ -1,15 +1,13 @@
-import { getNodeBottomY } from "./getNodeBottomY";
-import { Settings } from "./Settings";
-import { TreeNode } from "./TreeNode";
-import { getNodeRightX } from "./getNodeRightX";
+import { getNodeBottomY } from './getNodeBottomY';
+import { Settings } from './Settings';
+import { TreeNode } from './TreeNode';
+import { getNodeRightX } from './getNodeRightX';
 
-export function checkContourOverlap<T>(
-  contourSet: TreeNode<T>[],
-  node: TreeNode<T>,
-  settings: Settings
-) {
+export function checkContourOverlap<T>(contourSet: TreeNode<T>[], node: TreeNode<T>, settings: Settings) {
+  if (contourSet.includes(node)) return;
+
   contourSet.forEach((contourNode) => {
-    if (settings.orientation === "vertical") {
+    if (settings.orientation === 'vertical') {
       const nodeBottomY = getNodeBottomY(node);
 
       const contourRightX = getNodeRightX(contourNode);
@@ -17,8 +15,7 @@ export function checkContourOverlap<T>(
       const contourTopY = contourNode.y;
       const contourBottomY = getNodeBottomY(contourNode);
 
-      const coversCountour =
-        node.y <= contourTopY && nodeBottomY >= contourBottomY;
+      const coversCountour = node.y <= contourTopY && nodeBottomY >= contourBottomY;
       const traspassHorizontal = node.x < contourRightX;
 
       // if (coversCountour) {
@@ -40,8 +37,7 @@ export function checkContourOverlap<T>(
       const contourLeftX = contourNode.x;
       const contourRightX = getNodeRightX(contourNode);
 
-      const coversCountour =
-        node.x <= contourLeftX && nodeRightX >= contourRightX;
+      const coversCountour = node.x <= contourLeftX && nodeRightX >= contourRightX;
       const traspassVertical = node.y < contourBottomY;
 
       // if (coversCountour) {
