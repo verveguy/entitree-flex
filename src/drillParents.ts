@@ -62,6 +62,7 @@ export function drillParents(subtree, settings, map, contour, debug = () => {}) 
       processSubtree(parent, settings, map, contour);
     });
   } else {
+    // TODO: rework horizontal to match vertical code
     const initialShiftTop = getInitialTargetsShiftTop(subtree, parents, settings, map);
     let currentY = subtree.y - initialShiftTop;
 

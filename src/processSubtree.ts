@@ -25,17 +25,17 @@ export function processSubtree<T>(root: any, settings: Settings, map: TreeMap<T>
 
   drillSiblings(root, settings, map, contour, () => visualDebug(root));
   addGroupBoundingBox(root, settings, map);
-  visualDebug(root);
+  // visualDebug(root);
 
   drillSpouses(root, settings, map, contour, () => visualDebug(root));
   addGroupBoundingBox(root, settings, map);
-  visualDebug(root);
+  // visualDebug(root);
 
   drillChildren(root, settings, map, contour, () => visualDebug(root));
 
   //addGroupBoundingBox(root, settings, map);
 
-  visualDebug(root);
+  // visualDebug(root);
 
   drillParents(root, settings, map, contour, () => visualDebug(root));
 
