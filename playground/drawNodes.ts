@@ -2,7 +2,7 @@ import { SVG } from '@svgdotjs/svg.js';
 
 var draw = SVG().addTo('body');
 
-export function clear() {
+export function clearDrawing() {
   draw.clear();
 }
 

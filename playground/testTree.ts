@@ -1,4 +1,4 @@
-const flatTree = {
+const testTree = {
   '-12': { name: '-12', height: 24, width: 24 },
   '-13': { name: '-13', height: 26, width: 26 },
   '-11': { name: '-11', height: 22, width: 22 },
@@ -63,4 +63,4 @@ const flatTree = {
   29: { name: '29' },
 };
 
-export default flatTree;
+export { testTree };

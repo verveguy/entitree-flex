@@ -1,12 +1,8 @@
-import { getFromMap } from "./getFromMap";
-import { Settings } from "./Settings";
-import { TreeMap } from "./TreeMap";
-import { TreeNode } from "./TreeNode";
+import { getFromMap } from './getFromMap';
+import { Settings } from './Settings';
+import { TreeMap } from './TreeMap';
+import { TreeNode } from './TreeNode';
 
-export const getNextAfters = (
-  node: TreeNode,
-  map: TreeMap,
-  settings: Settings
-) => {
+export const getNextAfters = (node: TreeNode, map: TreeMap, settings: Settings) => {
   return getFromMap(node[settings.nextAfterAccessor], map);
 };

@@ -3,7 +3,6 @@ import { addGroupRightX } from './addGroupRightX';
 import { addLevelNodesSizes } from './addLevelNodesSizes';
 import { checkContourOverlap } from './checkContourOverlap';
 import { getFromMap } from './getFromMap';
-import { getInitialTargetsShiftLeft } from './getInitialTargetsShiftLeft';
 import { getInitialTargetsShiftTop } from './getInitialTargetsShiftTop';
 import { getNodeBottomY } from './getNodeBottomY';
 import { groupShiftRight } from './groupShiftRight';
@@ -11,7 +10,14 @@ import { processSubtree } from './processSubtree';
 
 const descendantsContour = [];
 
-export function drillSpouses(subtree, settings, map, contour, debug = () => {}) {
+export function drillSpouses(
+  subtree,
+  settings,
+  map,
+  contour,
+  // @ts-ignore - debug is used in commented code
+  debug: () => void = () => {}
+) {
   if (!contour) contour = descendantsContour;
 
   const spouses = getFromMap(subtree[settings.nextAfterAccessor], map);
@@ -19,30 +25,15 @@ export function drillSpouses(subtree, settings, map, contour, debug = () => {}) 
 
   addLevelNodesSizes(spouses, settings, map);
 
-  debug();
+  // debug();
 
   if (settings.orientation === 'vertical') {
-    const initialShiftLeft = getInitialTargetsShiftLeft(subtree, spouses, settings, map);
+    //const initialShiftLeft = getInitialTargetsShiftLeft(subtree, spouses, settings, map);
     let currentX = subtree.x + subtree.width + subtree.marginRight; // - initialShiftLeft;
 
     spouses.forEach((spouse) => {
       const midVerticalY = (spouse.y ?? subtree.y) + spouse.groupMaxHeight / 2;
-
-      // /////////////////// BEFORES ///////////////////
-      // const subSiblings = getFromMap(sibling[settings.nextBeforeAccessor], map);
-      // subSiblings?.forEach((subSibling) => {
-      //   subSibling.x = currentX;
-      //   subSibling.y = midVerticalY - subSibling.height / 2;
-
-      //   checkContourOverlap(contour, subSibling, settings);
-      //   processSubtree(subSibling, settings, map, contour);
-      //   currentX = getNodeRightX(subSibling);
-      // });
-
-      /////////////////// GROUP MAIN NODE
-
       //Set positions
-
       spouse.x = currentX;
       spouse.y = midVerticalY - spouse.height / 2;
 
@@ -51,24 +42,11 @@ export function drillSpouses(subtree, settings, map, contour, debug = () => {}) 
       groupShiftRight(spouse, settings, map, currentX);
       //checkContourOverlap(contour, sibling, settings);
       addGroupBoundingBox(spouse, settings, map);
-
-      debug();
-
+      // debug();
       currentX = spouse.groupRightX;
-
-      /////////////////// AFTERS ///////////////////
-      // getFromMap(sibling[settings.nextAfterAccessor], map)?.forEach((partner) => {
-      //   partner.x = currentX;
-      //   partner.y = midVerticalY - partner.height / 2;
-
-      //   processSubtree(partner, settings, map, contour);
-      //   checkContourOverlap(contour, partner, settings);
-      //   currentX = getNodeRightX(partner);
-      // });
-
-      //checkContourOverlap(descendantsContour, sibling, settings);
     });
   } else {
+    // TODO: rework horizontal to match vertical code
     const initialShiftTop = getInitialTargetsShiftTop(subtree, spouses, settings, map);
     let currentY = subtree.y - initialShiftTop;
 
